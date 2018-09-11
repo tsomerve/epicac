@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import PoetryPageView
+from .views import views
 
 urlpatterns = [
     path('poetry/', PoetryPageView, name='poetry'),
