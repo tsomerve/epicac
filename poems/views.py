@@ -12,7 +12,7 @@ def create_memory(request, pk):
     if request.method == 'POST':
         memory.create_memory = True
         memory.save()
-    return redirect('home', pk=memory.pk)
+    return redirect('home.html', pk=memory.pk)
 
 
 def learn_heartbreak(request):
