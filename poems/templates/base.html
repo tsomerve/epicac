@@ -1,6 +1,18 @@
-<header>
-    <a href="{% url 'home' %}">epicac.</a> | <a href="{% url 'poetry' %}">Hello?</a>
-  </header>
-  
-  {% block content %}
-  {% endblock %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>epicac.</title>
+</head>
+<body>
+    <h1>epicac.</h1>
+    {% block content %}
+    {% endblock content %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js"></script>
+    <script src="{% static 'poems/sketch.js' %}"></script>
+</body>
+</html>
