@@ -1,5 +1,6 @@
 const button = document.querySelector('#generate')
 const poem = document.querySelector('#poem')
+let poems
 
 button.addEventListener('click', () => {
     axios.get('/generate')
@@ -7,16 +8,23 @@ button.addEventListener('click', () => {
         poem.innerText = response.data.poem
     })
 })
+function preload() {
+    return loadJSON('/generate');
+}
 
 function setup() {
-    const canvas = createCanvas(500, 500)
-    canvas.parent('canvas')
-    button = createButton("Is this Poetry?");
+    createCanvas(windowWidth, windowHeight);
+    background('#12243E');
+    noStroke();
+    poems = preload()
+    console.log(poems)
+  }
 
-    background(120, 50, 255);
+function draw() {
+    if(poems.poem) {
+        text(poems.poem, 10, 10, 500, 80);
+        fill(50);
+        rect(100, 100, 500, 50);
+    }
 }
-
-function mousePressed() {
-    background(random(200));
-
-}
+  
