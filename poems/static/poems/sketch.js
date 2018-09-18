@@ -1,3 +1,8 @@
+axios.defaults.headers.common = {
+    'X-Requested-With': 'XMLHttpRequest',
+    'X-CSRFToken' : document.querySelector('[name=csrfmiddlewaretoken]').value
+}
+
 let currentPoem = ''
 
 function setup() {
@@ -7,7 +12,7 @@ function setup() {
 }
 
 function draw() {
-    background(color(255, 120, 120))
+    background(color(155, 75, 100))
     textSize(40)
     textAlign(CENTER)
     if(currentPoem === '') {
@@ -22,6 +27,10 @@ function draw() {
 function mousePressed() {
     loadJSON('/generate', (poems) => {
         currentPoem = poems.poem
+        axios.post('/save', {
+            poem: currentPoem,
+        })
+        .then(() => console.log('It worked!'))
     })
 }
   

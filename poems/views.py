@@ -1,5 +1,7 @@
 import glob
 import markovify
+import json
+
 from django.db import models
 from django.shortcuts import get_object_or_404, redirect, render
 from django.http import JsonResponse, HttpResponse
@@ -35,10 +37,14 @@ def generate_poem(request):
 
     return JsonResponse({'poem': ' '.join(sentences)})
 
-def generate_memory(request, pk):
-    poem = get_object_or_404(Poem, pk=pk)
-    if request.method == 'POST':
-        poem.save()
+def save_poem(request):
+    json_body = json.loads(request.body)
+    poem_text = json_body['poem']
+    poem = Poem()
+    poem.poetry = poem_text
+    poem.save()
+    return HttpResponse('')
+    
 
 def edit_poem(request):
     pass

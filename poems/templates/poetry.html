@@ -1,8 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<head>
-    <div id="poem"></div>
-    <div id="canvas"></div>
-</head>
+{% csrf_token %}
+<div id="poem"></div>
+<div id="canvas"></div>
 {% endblock content %}  
