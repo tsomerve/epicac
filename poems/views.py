@@ -1,11 +1,10 @@
 import glob
-
 import markovify
 from django.db import models
 from django.shortcuts import get_object_or_404, redirect, render
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 
-from .models import Memory, Poem
+from .models import Poem
 
 def create_poem(request):
     poems = Poem.objects.all()
@@ -27,6 +26,19 @@ def get_corpuses():
     return text
 
 def generate_poem(request):
+    sentences = []
     text_model = markovify.Text(get_corpuses())
+    while len(sentences) <= 6:
+        sentence = text_model.make_short_sentence(50)
+        if sentence:
+            sentences.append(sentence)
 
-    return JsonResponse({'poem': text_model.make_short_sentence(300)})
+    return JsonResponse({'poem': ' '.join(sentences)})
+
+def generate_memory(request, pk):
+    poem = get_object_or_404(Poem, pk=pk)
+    if request.method == 'POST':
+        poem.save()
+
+def edit_poem(request):
+    pass
