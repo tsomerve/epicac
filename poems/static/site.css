@@ -11,3 +11,12 @@ body {
 .button {
     font-family: Play;
 }
+
+#canvas {
+    width: 100vw;
+    height: 100vh;
+}
+
+#poem {
+    display: none;
+}

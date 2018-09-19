@@ -1,10 +1,11 @@
 import glob
 import markovify
 import json
-
 from django.db import models
-from django.shortcuts import get_object_or_404, redirect, render
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.forms import UserCreationForm
 from django.http import JsonResponse, HttpResponse
+from django.shortcuts import get_object_or_404, redirect, render
 
 from .models import Poem
 
@@ -24,7 +25,6 @@ def get_corpuses():
     for text_file in glob.glob('poems/text/*.txt'):
         with open(text_file) as f:
             text += f.read()
-
     return text
 
 def generate_poem(request):
@@ -34,7 +34,6 @@ def generate_poem(request):
         sentence = text_model.make_short_sentence(50)
         if sentence:
             sentences.append(sentence)
-
     return JsonResponse({'poem': ' '.join(sentences)})
 
 def save_poem(request):
@@ -45,6 +44,20 @@ def save_poem(request):
     poem.save()
     return HttpResponse('')
     
+def user_signup(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            return redirect('poetry.html')
+    else:
+        form = UserCreationForm()
+    return render(request, 'signup.html', {'form': form})
 
-def edit_poem(request):
-    pass
+def detail_poem(request, pk):
+    poem = get_object_or_404(Poem, pk=pk)
+    return render(request, 'detail.html', {'poem':poem})

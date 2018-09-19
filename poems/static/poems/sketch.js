@@ -4,9 +4,20 @@ axios.defaults.headers.common = {
 }
 
 let currentPoem = ''
+let myFont
+
+function preload() {
+    myFont = loadFont('/static/AlexBrush-Regular.ttf')
+}
+
 
 function setup() {
-    createCanvas(windowWidth, windowHeight)
+    const poem = document.querySelector('#poem')
+    if(poem) {
+        currentPoem = poem.innerText
+    }
+    const canvas = createCanvas(windowWidth, windowHeight)
+    canvas.parent('canvas')
     noStroke()
     rectMode(CENTER)
 }
@@ -14,10 +25,12 @@ function setup() {
 function draw() {
     background(color(155, 75, 100))
     textSize(40)
+    textStyle(ITALIC)
     textAlign(CENTER)
+    textFont(myFont) 
     if(currentPoem === '') {
         fill(color(255, 255, 255, 128))
-        text('Create a poem!', windowWidth / 2, windowHeight / 2)
+        text('Create a poem!', windowWidth / 2, windowHeight / 4)
     } else {
         fill(255);
         text(currentPoem, windowWidth / 2, windowHeight / 2, 700, windowHeight / 2)

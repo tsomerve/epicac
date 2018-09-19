@@ -2,5 +2,6 @@
 
 {% block content %}
 {% csrf_token %}
+<div id="poem">{{ poem.poetry }}</div>
 <div id="canvas"></div>
 {% endblock content %}  
