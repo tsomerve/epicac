@@ -8,6 +8,7 @@ let myFont
 
 function preload() {
     myFont = loadFont('/static/AlexBrush-Regular.ttf')
+    // secondFont = loadFont('/static/the_breakdown.ttf')
 }
 
 
