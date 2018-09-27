@@ -12,9 +12,15 @@ var y
 var outsideRadius = 150
 var insideRadius = 100
 
+const fonts = [
+    '/static/AlexBrush-Regular.ttf',
+    '/static/the_breakdown.ttf'
+]
+
+
+
 function preload() {
-    myFont = loadFont('/static/AlexBrush-Regular.ttf')
-    // secondFont = loadFont('/static/the_breakdown.ttf')
+    myFont = loadFont(random(fonts))
 }
 
 function setup() {
@@ -55,10 +61,10 @@ function draw() {
         let px = x + cos(radians(angle)) * outsideRadius;
         let py = y + sin(radians(angle)) * outsideRadius;
         angle += angleStep;
-        vertex(px, py);
+        vertex(mouseX + px, mouseY + py);
         px = x + cos(radians(angle)) * insideRadius;
         py = y + sin(radians(angle)) * insideRadius;
-        vertex(px, py); 
+        vertex(mouseX + px, mouseY + py);
         angle += angleStep;
     }
     endShape();
