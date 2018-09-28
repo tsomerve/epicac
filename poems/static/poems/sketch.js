@@ -5,19 +5,11 @@ axios.defaults.headers.common = {
 
 let currentPoem = ''
 let myFont
-let graphics
-
-var x
-var y
-var outsideRadius = 150
-var insideRadius = 100
 
 const fonts = [
     '/static/AlexBrush-Regular.ttf',
     '/static/the_breakdown.ttf'
 ]
-
-
 
 function preload() {
     myFont = loadFont(random(fonts))
@@ -25,8 +17,7 @@ function preload() {
 
 function setup() {
     background(204)
-    x = width / 2
-    y = height / 2
+
     const poem = document.querySelector('#poem')
     if(poem) {
         currentPoem = poem.innerText
@@ -50,24 +41,7 @@ function draw() {
     } else {
         fill(245);
         text(currentPoem, windowWidth / 2, windowHeight / 2, 700, windowHeight / 2)
-    }
-   
-    let numPoints = int(map(mouseX, 0, width, 15, 150));
-    let angle = 0;
-    let angleStep = 180.0/numPoints;
-    
-    triangleShape = beginShape(TRIANGLE_STRIP); 
-    for (let i = 0; i <= numPoints; i++) {
-        let px = x + cos(radians(angle)) * outsideRadius;
-        let py = y + sin(radians(angle)) * outsideRadius;
-        angle += angleStep;
-        vertex(mouseX + px, mouseY + py);
-        px = x + cos(radians(angle)) * insideRadius;
-        py = y + sin(radians(angle)) * insideRadius;
-        vertex(mouseX + px, mouseY + py);
-        angle += angleStep;
-    }
-    endShape();
+    }    
 }
 
 function mousePressed() {
@@ -79,5 +53,3 @@ function mousePressed() {
         .then(() => console.log('It worked!'))
     })
 }
-  
-
