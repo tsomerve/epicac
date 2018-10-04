@@ -93,13 +93,15 @@ function draw() {
         text('Is this Poetry?', windowWidth / 2, windowHeight / 4)
     } else {
         fill(245);
-        text(currentPoem, windowWidth / 2, windowHeight / 2, 700, windowHeight / 2)
+        text(currentPoem, windowWidth / 2, windowHeight / 2, windowWidth / 2, windowHeight / 2)
     }
     
-    rect(windowWidth / 2, windowHeight / 2, 200, 50)
-    fill(color(255, 255, 0, 0))
+    button = rect(windowWidth / 2, windowHeight / 2, 200, 50, 20)
+    stroke(255, 204, 0)
+    strokeWeight(3)
+    fill(color('magenta'))
     textSize(40)
-    text('Save Poem', windowWidth / 2 - 700, windowHeight / 2 - 700)
+    text('Save Poem', windowWidth / 2, windowHeight / 2)
 }
 
 function mousePressed() {
