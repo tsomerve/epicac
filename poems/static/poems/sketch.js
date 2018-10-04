@@ -18,7 +18,7 @@ function preload() {
     myFont = loadFont(random(fonts))
 }
 
-class Particles {
+class Particle {
     constructor (x, y) {
         this.x = x
         this.y = y
@@ -49,7 +49,33 @@ class Particles {
     }
 }
 
+class Button {
+    constructor (x, y, width, height, text) {
+        this.width = width
+        this.height = height
+        this.x = x
+        this.y = y
+        this.text = text
+    }
+    render() {
+        rect(this.x, this.y, this.width, this.height, 20)
+        stroke(255, 204, 0)
+        strokeWeight(3)
+        fill(color('magenta'))
+        textSize(40)
+        text(this.text, this.x, this.y)
+    }
+    isClicked(callback) {
+        if (mouseX >= (this.x) - (this.width / 2) && mouseX <= (this.x) + (this.width / 2) &&
+            mouseY >= (this.y) - (this.height / 2) && mouseY <= (this.y) + (this.height / 2))
+        {
+            callback.call(this)
+        }
+    }
+}
+
 const particles = []
+let button
 
 function setup() {
     background(204)
@@ -62,16 +88,20 @@ function setup() {
     canvas.parent('canvas')
     noStroke()
     rectMode(CENTER)
+
+    button = new Button(windowWidth / 2, windowHeight / 1.33, 200, 50, "Save Poem")
+
+    // loadJSON('/generate', (poems) => {
+    //     currentPoem = poems.poem
+    // })
 }
 
 function draw() {
     background(color(155, 75, 100))
 
-    console.log(windowWidth)
-    
     if(frameCount % 50 == 0) {
         for (let i = 0; i < 100; i++) {
-            particles.push(new Particles(random(0, windowWidth), random(0, windowHeight)))
+            particles.push(new Particle(random(0, windowWidth), random(0, windowHeight)))
         }
     }
     for (let i = 0; i < particles.length; i++) {
@@ -96,21 +126,17 @@ function draw() {
         text(currentPoem, windowWidth / 2, windowHeight / 2, windowWidth / 2, windowHeight / 2)
     }
     
-    button = rect(windowWidth / 2, windowHeight / 2, 200, 50, 20)
-    stroke(255, 204, 0)
-    strokeWeight(3)
-    fill(color('magenta'))
-    textSize(40)
-    text('Save Poem', windowWidth / 2, windowHeight / 2)
+    button.render()
 }
 
+
 function mousePressed() {
-    loadJSON('/generate', (poems) => {
-        currentPoem = poems.poem
+    button.isClicked(function() {
         axios.post('/save', {
             poem: currentPoem,
         })
-        .then(() => console.log('It worked!'))
+        .then(() => {
+            this.text = "Saved!"
+        })
     })
-    
 }
