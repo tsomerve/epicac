@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "160ea9e1c45a47d51c6356383ae0f791dc0762fc4960007db074aba4a0b7446f"
+            "sha256": "9d01b6661c03c244188ae4f10d4f41ad3a85ca37a7a67a891d41a6f2b1a52b9c"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -18,11 +18,11 @@
     "default": {
         "django": {
             "hashes": [
-                "sha256:04f2e423f2e60943c02bd2959174b844f7d1bcd19eabb7f8e4282999958021fd",
-                "sha256:e1cc1cd6b658aa4e052f5f2b148bfda08091d7c3558529708342e37e4e33f72c"
+                "sha256:acdcc1f61fdb0a0c82a1d3bf1879a414e7732ea894a7632af7f6d66ec7ab5bb3",
+                "sha256:efbcad7ebb47daafbcead109b38a5bd519a3c3cd92c6ed0f691ff97fcdd16b45"
             ],
             "index": "pypi",
-            "version": "==2.1.1"
+            "version": "==2.1.2"
         },
         "markovify": {
             "hashes": [

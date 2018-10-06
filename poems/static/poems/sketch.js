@@ -83,7 +83,12 @@ function setup() {
     const poem = document.querySelector('#poem')
     if(poem) {
         currentPoem = poem.innerText
+    } else {
+        loadJSON('/generate', (poems) => {
+            currentPoem = poems.poem
+        })
     }
+    
     const canvas = createCanvas(windowWidth, windowHeight)
     canvas.parent('canvas')
     noStroke()
@@ -91,9 +96,7 @@ function setup() {
 
     button = new Button(windowWidth / 2, windowHeight / 1.33, 200, 50, "Save Poem")
 
-    // loadJSON('/generate', (poems) => {
-    //     currentPoem = poems.poem
-    // })
+
 }
 
 function draw() {
